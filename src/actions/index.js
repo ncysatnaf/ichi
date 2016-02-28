@@ -15,7 +15,7 @@ export function handleToggleChange(key, value) {
 
 //magical  ----(*  ~~~~  logic
 export const ADD_TODO = "ADD_TODO"
-export const EDIT_TODO = "EDIT_TODO"
+export const SELECT_TODO = "SELECT_TODO"
 export const COMPLETE_TODO = "COMPLETE_TODO"
 
 export function addTodo(text) {
@@ -27,13 +27,20 @@ export function addTodo(text) {
 
 export function completeTodo(index) {
 	return {
-		type: COMPLETE_TODO,
+		type: COMPLETE_TODO
+	}
+}
+
+export function selectTodo(index) {
+	return {
+		type: SELECT_TODO,
 		index
 	}
 }
 
 //rule  >---->  ||| Vision
 export const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER"
+export const SET_INTITAL_OPTION = "SET_INTITAL_OPTION"
 
 export function setVisibilityFilter(filter) {
 	return {
@@ -42,10 +49,15 @@ export function setVisibilityFilter(filter) {
 	}
 }
 
-
-
-
-
+export function setIntitalOption(key,value,parent){
+	return {
+	  type: SET_INTITAL_OPTION,
+	  parent: parent,
+	  data:{
+	  	[key]: value
+	  }
+	}
+}
 
 
 
