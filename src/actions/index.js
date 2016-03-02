@@ -60,5 +60,13 @@ export function setIntitalOption(key,value,parent){
 }
 
 
+export const LOAD_INITIAL_TODO = "LOAD_INITIAL_TODO"
 
+export function loadInitialTodo (){
+	let initialTodos = JSON.parse(window.localStorage.todos)
+	return {
+		type: LOAD_INITIAL_TODO,
+		initialTodos
+	}
+}
 

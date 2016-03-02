@@ -2,7 +2,7 @@ import React, { Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import AppBarExampleMenu from '../components/AppBarExampleMenu'
 import LeftNavUndockExample from '../components/LeftNavUndockExample'
-import { handleToggleChange, addTodo, selectTodo, setIntitalOption, completeTodo } from '../actions/index'
+import { handleToggleChange, addTodo, selectTodo, setIntitalOption, completeTodo, loadInitialTodo } from '../actions/index'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Todo from '../components/Todo'
 
@@ -15,6 +15,10 @@ class App extends Component {
     this.handleKeydown = this.handleKeydown.bind(this)
     this.handleRowSelection = this.handleRowSelection.bind(this)
     this.handleAction = this.handleAction.bind(this)
+  }
+
+  componentDidMount(){
+    this.props.dispatch(loadInitialTodo())
   }
 
   handleToggle(key, value){
@@ -45,6 +49,9 @@ class App extends Component {
 
 function mapStateToProps(state,props) {
   const { global, todos, interaction } = state
+  if(todos.length > 0){
+    window.localStorage.setItem("todos", JSON.stringify(todos))
+  }
   return {
     global,
     todos,

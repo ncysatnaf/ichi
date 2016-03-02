@@ -37,7 +37,7 @@ export default class Todo extends React.Component {
       		  if (!todo.complete) {
       			return (
 	          	<TableRow selected={todo.selected} key={i}>
-	          	  <TableRowColumn>{todo.text}</TableRowColumn>
+	          	  <TableRowColumn key={i}>{todo.text}</TableRowColumn>
 	          	</TableRow>
 	          	)
       		  }

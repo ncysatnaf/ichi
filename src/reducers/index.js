@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 import { 
   HANDLE_TOGGLE_CHANGE, ADD_TODO, 
   COMPLETE_TODO, SET_VISIBILITY_FILTER,
-  SELECT_TODO, SET_INTITAL_OPTION} from '../actions/index'
+  SELECT_TODO, SET_INTITAL_OPTION,
+  LOAD_INITIAL_TODO} from '../actions/index'
 
 function global(state = { isopen: false }, action) {
 	switch (action.type) {
@@ -16,7 +17,10 @@ function global(state = { isopen: false }, action) {
 }
 
 function todos(state = [],action) {
+	console.log(action)
 	switch (action.type) {
+		case LOAD_INITIAL_TODO:
+			return action.initialTodos
 		case ADD_TODO:
 			return [...state, {
 				text: action.text,
