@@ -18,10 +18,11 @@ export const ADD_TODO = "ADD_TODO"
 export const SELECT_TODO = "SELECT_TODO"
 export const COMPLETE_TODO = "COMPLETE_TODO"
 
-export function addTodo(text) {
+export function addTodo(text,tag) {
 	return {
 		type: ADD_TODO,
-		text
+		text,
+		tag
 	}
 }
 
@@ -62,11 +63,24 @@ export function setIntitalOption(key,value,parent){
 
 export const LOAD_INITIAL_TODO = "LOAD_INITIAL_TODO"
 
-export function loadInitialTodo (){
-	let initialTodos = JSON.parse(window.localStorage.todos)
+export function loadInitialTodo (tag){
+	let initialTodos,
+		filter
+	const todos = JSON.parse(window.localStorage.getItem(tag))
+
+	if (todos) {
+		if (todos.length > 0) {
+			initialTodos = todos
+		} else {
+			filter = 'xianyu'
+		}
+	} else {
+		filter = 'xianyu'
+	}
 	return {
 		type: LOAD_INITIAL_TODO,
-		initialTodos
+		tag: tag,
+		initialTodos: initialTodos || '',
+		filter: filter || ''
 	}
 }
-

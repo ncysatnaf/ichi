@@ -5,19 +5,22 @@ import {
   SELECT_TODO, SET_INTITAL_OPTION,
   LOAD_INITIAL_TODO} from '../actions/index'
 
-function global(state = { isopen: false }, action) {
+function global(state = { isopen: false, tag: 'Work' }, action) {
 	switch (action.type) {
 		case HANDLE_TOGGLE_CHANGE:
 			return Object.assign({}, state, {
 				isopen: action.data.isopen
+			})
+		case LOAD_INITIAL_TODO:
+			return Object.assign({}, state, {
+				tag: action.tag
 			})
 		default:
 			return state
 	}
 }
 
-function todos(state = [],action) {
-	console.log(action)
+function todos(state = [] ,action) {
 	switch (action.type) {
 		case LOAD_INITIAL_TODO:
 			return action.initialTodos
@@ -25,7 +28,8 @@ function todos(state = [],action) {
 			return [...state, {
 				text: action.text,
 				selected: false,
-				complete: false
+				complete: false,
+				tag: action.tag
 			}]
 		case SELECT_TODO:
 			return [
@@ -48,10 +52,10 @@ function  interaction( state={filter: null}, action) {
 			return Object.assign({}, state, {
 			  filter: "select"
 			})
-		case SET_INTITAL_OPTION:
-		  if(action.parent === 'todo'){
-	        return Object.assign({}, state, action.data
-	      )}
+		case LOAD_INITIAL_TODO:
+		  	return Object.assign({}, state, {
+			  filter: action.filter
+			})
 		default:
 			return state
 	}

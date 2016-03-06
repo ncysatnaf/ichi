@@ -12,7 +12,7 @@ export default class Todo extends React.Component {
   render() {
   	const { handleKeydown, handleRowSelection, todos, interaction, handleAction } = this.props
   	const SnackbarBox = [
-  	  {filter: "xianyu", message:"你目前的状态为: 咸鱼", action:" "},
+  	  {filter: "xianyu", message:"你目前的状态为: 没事干的咸鱼", action:""},
   	  {filter: "select", message:"选择完成的Todo", action:"完成"}
   	]
 
@@ -30,10 +30,10 @@ export default class Todo extends React.Component {
         ref="textField"
         floatingLabelText="Add Todo"
         fullWidth={true}
-        onEnterKeyDown={e => handleKeydown(e.target.value)}/>
+        onEnterKeyDown={e => handleKeydown(this.refs.textField,e)}/>
         <Table onCellClick={e => handleRowSelection(e)} multiSelectable={true} >
       	  <TableBody deselectOnClickaway={false}>
-      		{todos.map(function(todo, i) {
+      		{todos && todos.map(function(todo, i) {
       		  if (!todo.complete) {
       			return (
 	          	<TableRow selected={todo.selected} key={i}>

@@ -15,17 +15,29 @@ class App extends Component {
     this.handleKeydown = this.handleKeydown.bind(this)
     this.handleRowSelection = this.handleRowSelection.bind(this)
     this.handleAction = this.handleAction.bind(this)
+    this.handleTouchTap = this.handleTouchTap.bind(this)
   }
 
   componentDidMount(){
-    this.props.dispatch(loadInitialTodo())
+    const {tag} = this.props
+    this.props.dispatch(loadInitialTodo(tag))
   }
 
+  handleTouchTap(refs){
+    const tag = refs.props.tag
+    this.props.dispatch(loadInitialTodo(tag))
+    this.props.dispatch(handleToggleChange("isopen", false))
+  }
   handleToggle(key, value){
     this.props.dispatch(handleToggleChange(key, value))
   }
-  handleKeydown(text){
-    this.props.dispatch(addTodo(text))
+  handleKeydown(refs,e){
+    e.preventDefault()
+    const {tag} = this.props
+    const text = e.target.value
+    console.log(e.target)
+    this.props.dispatch(addTodo(text, tag))
+    e.target.value = ''
   }
   handleRowSelection(index){
     this.props.dispatch(selectTodo(index))
@@ -39,7 +51,7 @@ class App extends Component {
     return (
       <div>
         <AppBarExampleMenu global= {global} handleToggle={this.handleToggle}/>
-        <LeftNavUndockExample global= {global} handleToggle={this.handleToggle}/>
+        <LeftNavUndockExample global= {global} handleToggle={this.handleToggle} handleTouchTap={this.handleTouchTap}/>
         <Todo todos={todos} global= {global} interaction= {interaction} handleKeydown={this.handleKeydown} handleRowSelection={this.handleRowSelection} handleAction={this.handleAction}/>
       </div>
       )
@@ -49,13 +61,15 @@ class App extends Component {
 
 function mapStateToProps(state,props) {
   const { global, todos, interaction } = state
-  if(todos.length > 0){
-    window.localStorage.setItem("todos", JSON.stringify(todos))
+  const tag = global.tag
+  if(todos != ''){
+    window.localStorage.setItem(tag, JSON.stringify(todos))
   }
   return {
     global,
     todos,
-    interaction
+    interaction,
+    tag
   }
 }
 

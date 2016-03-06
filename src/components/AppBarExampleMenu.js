@@ -8,10 +8,10 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 export default class AppBarExampleMenu extends Component {
 
   render() {
-  	const { handleToggle } = this.props
+  	const { handleToggle,global } = this.props
     return (
       <AppBar
-	    title="Title"
+	    title={global.tag}
 	    onLeftIconButtonTouchTap={e => handleToggle("isopen", true)}
 	    iconElementRight={
 	      <IconMenu

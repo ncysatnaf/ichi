@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 export default class LeftNavUndockExample extends React.Component {
 
   render() {
-  	const { global, handleToggle } = this.props
+  	const { global, handleToggle, handleTouchTap } = this.props
     return (
       <div>
       	<LeftNav
@@ -14,8 +14,8 @@ export default class LeftNavUndockExample extends React.Component {
       	  open={global.isopen}
       	  onRequestChange={e => handleToggle("isopen", false)}
       	>
-      	  <MenuItem onTouchTap={e => alert(e)}>Menu Item</MenuItem>
-      	  <MenuItem onTouchTap={e => alert(e)}>Menu Item</MenuItem>
+      	  <MenuItem ref="Work" tag="Work" onTouchTap={() => handleTouchTap(this.refs.Work)}>Work</MenuItem>
+      	  <MenuItem ref="Live" tag="Live" onTouchTap={() => handleTouchTap(this.refs.Live)}>Live</MenuItem>
       	</LeftNav>
       </div>
     )
