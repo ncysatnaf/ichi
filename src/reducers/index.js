@@ -20,7 +20,7 @@ function global(state = { isopen: false, tag: 'Work' }, action) {
 	}
 }
 
-function todos(state = [] ,action) {
+function todos(state = null ,action) {
 	switch (action.type) {
 		case LOAD_INITIAL_TODO:
 			return action.initialTodos

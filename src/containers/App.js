@@ -62,7 +62,7 @@ class App extends Component {
 function mapStateToProps(state,props) {
   const { global, todos, interaction } = state
   const tag = global.tag
-  if(todos != ''){
+  if(todos){
     window.localStorage.setItem(tag, JSON.stringify(todos))
   }
   return {
